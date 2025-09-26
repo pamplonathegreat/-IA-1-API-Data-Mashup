@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Book + Cover Join</title>
+  <style>
+    body { font-family: Arial; margin: 20px; }
+    .error { background: #fdd; padding: 10px; }
+    .book { border: 1px solid #ccc; padding: 10px; margin: 10px 0; display: flex; align-items: center; }
+    img { margin-right: 10px; height: 100px; }
+  </style>
+</head>
+<body>
+  <h1>Book Search</h1>
+  <form>
+    <input type="text" name="q" value="{{ query }}">
+    <button type="submit">Search</button>
+    <a href="/">Retry</a>
+  </form>
+
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+
+  {% for b in results %}
+    <div class="book">
+      {% if b.cover %}<img src="{{ b.cover }}">{% endif %}
+      <div>
+        <strong>{{ b.title }}</strong> ({{ b.year }})<br>
+        Author: {{ b.author }}<br>
+        Title length: {{ b.title_length }} characters
+      </div>
+    </div>
+  {% empty %}
+    <p>No results.</p>
+  {% endfor %}
+</body>
+</html>
